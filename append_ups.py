@@ -17,6 +17,7 @@ if __name__ == "__main__":
         usps_dict = json.load(f)
         for key in usps_dict:
             convert_dict[key.lower()] = usps_dict[key].lower()
+            convert_dict['{}.'.format(key.lower())] = usps_dict[key].lower()
     with open(FINALJSON, 'w') as f:
         f.write(json.dumps(convert_dict,indent=4))
     
