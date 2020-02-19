@@ -6,6 +6,9 @@ __email__ = "jfox13@nd.edu"
 
 import json
 
+STRINGCONVERSIONJSON = "conversion.json"
+DBNAME = "?????"
+
 def replace_string_builder(replace_json: str, col_name: str) -> str:
     ''' builds the piece of a querry responsible for doing all string replacements to clean data '''
     with open(replace_json, 'r') as f:
