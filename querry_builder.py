@@ -15,8 +15,13 @@ def replace_string_builder(replace_json: str, col_name: str) -> str:
         replace_dict = json.load(f)
     replace_string = col_name
 
+    '''
+    TODO: fix replace logic, should only find and replace when for the following cases:
+    * " substring "
+    * "^substring "
+    * " substring"
+    '''
     for key in replace_dict:
-        replace_string = "replace({}, {}, {})".format(replace_string, key, replace_dict[key])
-        replace_string = "replace({}, {}, {})".format(replace_string, key, replace_dict[key])
-    
+        replace_string = "replace({}, \'{}\', \'{}\')".format(replace_string, key, replace_dict[key])
+
     return replace_string
