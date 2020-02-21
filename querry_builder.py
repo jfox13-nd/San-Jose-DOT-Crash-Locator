@@ -12,6 +12,8 @@ STRINGCONVERSIONJSON = "conversions.json"
 DBNAME = "?????"
 DBLOCALNAME = "dot"
 USERNAME = "jfox13"
+EWINTERSTRING = "East-West"
+NSINTERSTRING = "North-South"
 
 def replace_string_builder(replace_json: str, col_name: str) -> str:
     ''' builds the piece of a querry responsible for doing all string replacements to clean data '''
@@ -37,8 +39,7 @@ if __name__ == '__main__':
         cursor = connection.cursor()
     except:
         print("Error: Could not connect to SQL database {} as {}".format(DBLOCALNAME,USERNAME),file=sys.stderr)
-    #print('select {}, {} from "Intersections" limit 2'.format(replace_string_builder(STRINGCONVERSIONJSON,'LOWER("Intersections".astreetnam)'),replace_string_builder(STRINGCONVERSIONJSON,'LOWER("Intersections".astreetnam)')))
-    cursor.execute('select {}, {} from "Intersections" limit 2'.format(replace_string_builder(STRINGCONVERSIONJSON,'LOWER("Intersections".astreetnam)'),replace_string_builder(STRINGCONVERSIONJSON,'LOWER("Intersections".bstreetnam)')))
-    #cursor.execute('select {}, {} from "Intersections" limit 2'.format('LOWER("Intersections".astreetnam)','LOWER("Intersections".bstreetnam)'))
+    querry = 'select {}, {} from "Intersections" limit 2'.format(replace_string_builder(STRINGCONVERSIONJSON,'LOWER("Intersections".astreetnam)'),replace_string_builder(STRINGCONVERSIONJSON,'LOWER("Intersections".bstreetnam)'))
+    cursor.execute(querry)
     record = cursor.fetchall()
     print(record)
