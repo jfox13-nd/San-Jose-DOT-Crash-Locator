@@ -19,12 +19,12 @@ def replace_string_builder(replace_json: str, col_name: str) -> str:
         replace_dict = json.load(f)
     replace_string = col_name
 
-    '''
-    Error in regex: REGEXP_REPLACE() does not allow for capture groups so string replacements might create odd formatting by adding excess spaces
-    ex. "^Example ct.$" -> "^Example court $"
-    '''
+    # REGEX assumes only spaces and no other whitespace
     for key in replace_dict:
-        replace_string = "REGEXP_REPLACE({}, \'(^| ){}($| )\', \'{}\','g')".format(replace_string, key, replace_dict[key])
+        replace_string = "REGEXP_REPLACE({}, \'(^| ){}($| )\', \' {} \','g')".format(replace_string, key, replace_dict[key])
+
+    # remove beginning and trailing spaces
+    replace_string = "REGEXP_REPLACE({}, \'(^ +)|( +$)\', \'\')".format(replace_string)
 
     return replace_string
 
@@ -38,7 +38,7 @@ if __name__ == '__main__':
     except:
         print("Error: Could not connect to SQL database {} as {}".format(DBLOCALNAME,USERNAME),file=sys.stderr)
     #print('select {}, {} from "Intersections" limit 2'.format(replace_string_builder(STRINGCONVERSIONJSON,'LOWER("Intersections".astreetnam)'),replace_string_builder(STRINGCONVERSIONJSON,'LOWER("Intersections".astreetnam)')))
-    #cursor.execute('select {}, {} from "Intersections" limit 2'.format(replace_string_builder(STRINGCONVERSIONJSON,'LOWER("Intersections".astreetnam)'),replace_string_builder(STRINGCONVERSIONJSON,'LOWER("Intersections".bstreetnam)')))
-    cursor.execute('select {}, {} from "Intersections" limit 2'.format('LOWER("Intersections".astreetnam)','LOWER("Intersections".bstreetnam)'))
+    cursor.execute('select {}, {} from "Intersections" limit 2'.format(replace_string_builder(STRINGCONVERSIONJSON,'LOWER("Intersections".astreetnam)'),replace_string_builder(STRINGCONVERSIONJSON,'LOWER("Intersections".bstreetnam)')))
+    #cursor.execute('select {}, {} from "Intersections" limit 2'.format('LOWER("Intersections".astreetnam)','LOWER("Intersections".bstreetnam)'))
     record = cursor.fetchall()
     print(record)
