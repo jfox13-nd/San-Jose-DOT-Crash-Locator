@@ -23,7 +23,6 @@ def create_usps_dict(usps_textfile: str, conversion_dict: dict) -> None:
             if not line:
                 for word in word_set:
                     conversion_dict[word.lower()] = last_word.lower()
-                    #conversion_dict["{}.".format(word.lower())] = last_word.lower()
                 word_set = set()
                 last_word = text[index+1].strip()
                 continue
@@ -42,6 +41,5 @@ if __name__ == '__main__':
             if key in conversion_dict:
                 continue
             conversion_dict[key.lower()] = usps_dict[key].lower()
-            #conversion_dict['{}.'.format(key.lower())] = usps_dict[key].lower()
     with open(FINALJSON, 'w') as f:
         f.write(json.dumps(conversion_dict,indent=4))
