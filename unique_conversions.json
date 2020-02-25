@@ -28,5 +28,9 @@
     "nine": "9",
     "tenth": "10",
     "ten": "10",
-    "10th": "10"
+    "10th": "10",
+    "n": "north",
+    "s": "south",
+    "e": "east",
+    "w": "west"
 }
