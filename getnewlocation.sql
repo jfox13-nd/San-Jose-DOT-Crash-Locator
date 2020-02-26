@@ -1,24 +1,34 @@
-CREATE OR REPLACE FUNCTION getnewlocation ( interPoint Point, streetID integer, direction VARCHAR(200), distance integer)
+CREATE OR REPLACE FUNCTION getnewlocation ( inter_point Point, streetID integer, direction VARCHAR(200), distance integer)
     RETURNS Point
 AS
 $body$
 DECLARE
     fract_distance float8;
     inter_fract float8;
+    azimuth float8;
     final Point;
+    line_start Linestring;
 BEGIN
 
-    SELECT distance / ST_Length(ST_AsText(ST_LineMerge(geom))) INTO fract_distance FROM "StreetCenterlines" where id = streetID;
-    SELECT ST_Line_Locate_Point(geom, interPoint) INTO inter_fract FROM "StreetCenterlines" where id = streetID;
+    SELECT distance / ST_Length(ST_AsText(ST_LineMerge(geom))) INTO fract_distance FROM "StreetCenterlines" WHERE id = streetID;
+    SELECT ST_Line_Locate_Point(geom, inter_point) INTO inter_fract FROM "StreetCenterlines" WHERE id = streetID;
+    SELECT ST_StartPoint(geom) INTO line_start FROM "StreetCenterlines" WHERE id = streetID;
 
+    azimuth := ST_Azimuth(inter_point,line_start);
+
+    -- Solution to check if line starts from West or South not entirely correct if road turns in very different direction
     IF direction = 'West' THEN
         fract_distance := fract_distance * -1;
+        IF azimuth > PI() AND azimuth < 2.0 * PI() THEN
+            fract_distance := fract_distance * -1;
+        END IF;
     END IF;
     IF direction = 'South' THEN
         fract_distance := fract_distance * -1;
+        IF azimuth > PI() / 2.0 AND azimuth < 3.0 * PI() / 2.0 THEN
+            fract_distance := fract_distance * -1;
+        END IF;
     END IF;
-
-    -- check if start is more west or south
 
     inter_fract := inter_fract + fract_distance;
 
