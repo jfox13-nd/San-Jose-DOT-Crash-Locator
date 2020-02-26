@@ -32,5 +32,10 @@
     "n": "north",
     "s": "south",
     "e": "east",
-    "w": "west"
+    "w": "west",
+    "lp": "loop",
+    "ci": "circle",
+    "bl": "boulevard",
+    "ex": "expressway",
+    "fr": "freeway"
 }
