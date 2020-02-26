@@ -18,15 +18,15 @@ BEGIN
 
     -- Solution to check if line starts from West or South not entirely correct if road turns in very different direction
     IF direction = 'West' THEN
-        fract_distance := fract_distance * -1;
+        fract_distance := fract_distance * -1.0;
         IF azimuth > PI() AND azimuth < 2.0 * PI() THEN
             fract_distance := fract_distance * -1;
         END IF;
     END IF;
     IF direction = 'South' THEN
-        fract_distance := fract_distance * -1;
+        fract_distance := fract_distance * -1.0;
         IF azimuth > PI() / 2.0 AND azimuth < 3.0 * PI() / 2.0 THEN
-            fract_distance := fract_distance * -1;
+            fract_distance := fract_distance * -1.0;
         END IF;
     END IF;
 
