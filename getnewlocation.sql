@@ -1,13 +1,13 @@
-CREATE OR REPLACE FUNCTION getnewlocation ( inter_point Point, streetID integer, direction VARCHAR(200), distance integer)
-    RETURNS Point
+CREATE OR REPLACE FUNCTION getnewlocation ( inter_point geometry, streetID integer, direction VARCHAR(200), distance integer)
+    RETURNS geometry
 AS
 $body$
 DECLARE
     fract_distance float8;
     inter_fract float8;
     azimuth float8;
-    final Point;
-    line_start line;
+    final geometry;
+    line_start geometry;
 BEGIN
 
     SELECT distance / ST_Length(ST_AsText(ST_LineMerge(geom))) INTO fract_distance FROM "StreetCenterlines" WHERE id = streetID;

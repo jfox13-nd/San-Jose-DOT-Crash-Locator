@@ -1,9 +1,9 @@
 CREATE OR REPLACE FUNCTION findcrashlocation ( interID integer, direction VARCHAR(200), distance integer)
-    RETURNS Point
+    RETURNS geometry
 AS
 $body$
 DECLARE
-    final Point;
+    final geometry;
     streetID integer;
 BEGIN
 
