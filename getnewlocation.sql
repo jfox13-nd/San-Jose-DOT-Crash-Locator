@@ -7,7 +7,7 @@ DECLARE
     inter_fract float8;
     azimuth float8;
     final Point;
-    line_start Linestring;
+    line_start line;
 BEGIN
 
     SELECT distance / ST_Length(ST_AsText(ST_LineMerge(geom))) INTO fract_distance FROM "StreetCenterlines" WHERE id = streetID;

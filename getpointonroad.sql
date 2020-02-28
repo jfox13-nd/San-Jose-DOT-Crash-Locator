@@ -1,16 +1,16 @@
 CREATE OR REPLACE FUNCTION getpointonroad ( interId integer, streetID integer )
-    RETURNS POINT
+    RETURNS Point
 AS
 $body$
 DECLARE
-    road LINE;
-    inter POINT;
+    road line;
+    inter Point;
 BEGIN
 
-    SELECT geom INTO road FROM "StreetCenterlines" WHERE id = streetID;
+    SELECT ST_AsText(ST_LineMerge(geom)) INTO road FROM "StreetCenterlines" WHERE id = streetID;
     SELECT (ST_Dump(geom)).geom INTO inter FROM "Intersections" where id = interID;
 
-    RETURN ST_ClosestPoint(road, inter)
+    RETURN ST_ClosestPoint(road, inter);
 
 END;
 $body$
