@@ -29,10 +29,10 @@ BEGIN
             fract_distance := fract_distance * -1.0;
         END IF;
     END IF;
-
+    
     inter_fract := inter_fract + fract_distance;
 
-    SELECT ST_Line_Interpolate_Point(geom, inter_fract) INTO final FROM "StreetCenterlines" where id = streetID;
+    SELECT ST_LineInterpolatePoint( ST_LineMerge(geom), inter_fract) INTO final FROM "StreetCenterlines" where id = streetID;
 
     RETURN final;
 

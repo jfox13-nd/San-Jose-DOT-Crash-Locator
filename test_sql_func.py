@@ -78,8 +78,15 @@ class DotSQLTesting(unittest.TestCase):
         self.assertNotEqual(cursor,None)
 
         querry ="""
-        SELECT findcrashlocation({}, 'East', 30)
-        """
+        SELECT findcrashlocation({}, 'East', 30) FROM interclean;
+        """.format(126)
+
+        cursor.execute(querry)
+        record = cursor.fetchall()
+        
+        self.assertNotEqual(record, None)
+        self.assertNotEqual(record[0], None)
+        print(record)
 
 if __name__ == '__main__':
     unittest.main()
