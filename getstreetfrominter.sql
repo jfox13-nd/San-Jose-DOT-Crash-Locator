@@ -6,7 +6,7 @@ DECLARE
     streetID integer := 0;
 BEGIN
 
-    IF direction = 'East-West' THEN
+    IF direction = 'East-West' OR direction = 'East' OR direction = 'West' THEN
         IF astreetdir = 'East-West' THEN
             --SELECT INTO streetID streetclean.id FROM streetclean, interclean where streetclean.street = streeta;
             --streetID := (SELECT streetclean.id FROM streetclean, interclean where streetclean.street = streeta limit 1);
@@ -19,7 +19,7 @@ BEGIN
         END IF;
     END IF;
 
-    IF direction = 'North-South' THEN
+    IF direction = 'North-South' OR direction = 'North' OR direction = 'South' THEN
         IF astreetdir = 'North-South' THEN
             --SELECT INTO streetID streetclean.id FROM streetclean, interclean where streetclean.street = streeta;
             --streetID := (SELECT streetclean.id FROM streetclean, interclean where streetclean.street = streeta limit 1);
