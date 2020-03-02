@@ -27,9 +27,15 @@ def db_setup():
         print("Error: Could not connect to SQL database {} as {}".format(DBLOCALNAME,USERNAME),file=sys.stderr)
         return None
 
+def point_within_bounding_box(x_y: tuple, bottom_left: tuple, top_right: tuple) -> bool:
+    ''' Check that a point is within a bounding box, tuples in format (x,y) '''
+    if( x_y[0] >= bottom_left[0] and x_y[0] <= top_right[0] and x_y[1] >= bottom_left[1] and x_y[1] <= top_right[1] ):
+        return True
+    return False
+
 class DotSQLTesting(unittest.TestCase):
 
-    def test_getstreetfrominter(self):
+    def test_getstreetfrominter00(self):
         ''' Given a sample intersection test that the correct street id is returned '''
         cursor = db_setup()
         self.assertNotEqual(cursor,None)
@@ -43,11 +49,11 @@ class DotSQLTesting(unittest.TestCase):
         self.assertNotEqual(record[0][0], None)
         self.assertEqual(record[0][0], 12290)
 
-    def test_getpointfrominter(self):
+    def test_getpointonroad00(self):
         ''' Given a sample intersection id get the nearest point on one of the roads '''
-        y_geom = 37.2666
-        x_geom = -121.9262
-        rel_tol = 0.01
+        bottom_left = (-121.926463, 37.266587)
+        top_right = (-121.926074, 37.266697)
+
         cursor = db_setup()
         self.assertNotEqual(cursor,None)
 
@@ -64,8 +70,16 @@ class DotSQLTesting(unittest.TestCase):
         self.assertNotEqual(record[0], None)
         self.assertNotEqual(record[0][0], None)
         self.assertNotEqual(record[0][1], None)
-        self.assertTrue(math.isclose(record[0][0], x_geom, rel_tol=rel_tol))
-        self.assertTrue(math.isclose(record[0][1], y_geom, rel_tol=rel_tol))
+        self.assertTrue( point_within_bounding_box(record[0], bottom_left, top_right) )
+
+    def test_findcrashlocation00(self):
+        ''' find actual location of a crash '''
+        cursor = db_setup()
+        self.assertNotEqual(cursor,None)
+
+        querry ="""
+        SELECT findcrashlocation({}, 'East', 30)
+        """
 
 if __name__ == '__main__':
     unittest.main()
