@@ -11,8 +11,8 @@ DECLARE
 BEGIN
 
     SELECT distance / ST_Length(ST_AsText(ST_LineMerge(geom))) INTO fract_distance FROM "StreetCenterlines" WHERE id = streetID;
-    SELECT ST_Line_Locate_Point(geom, inter_point) INTO inter_fract FROM "StreetCenterlines" WHERE id = streetID;
-    SELECT ST_StartPoint(geom) INTO line_start FROM "StreetCenterlines" WHERE id = streetID;
+    SELECT ST_LineLocatePoint( ST_LineMerge(geom) , inter_point) INTO inter_fract FROM "StreetCenterlines" WHERE id = streetID;
+    SELECT ST_StartPoint( ST_LineMerge(geom) ) INTO line_start FROM "StreetCenterlines" WHERE id = streetID;
 
     azimuth := ST_Azimuth(inter_point,line_start);
 
