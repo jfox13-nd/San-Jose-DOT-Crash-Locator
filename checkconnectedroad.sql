@@ -4,14 +4,20 @@ AS
 $body$
 DECLARE
     roada geometry;
+    roadaname VARCHAR(200);
     roadb geometry;
+    roadaname VARCHAR(200);
 BEGIN
 
-SELECT ST_LineMerge(geom) INTO roada FROM "StreetCenterlines" where id = streeta;
-SELECT ST_LineMerge(geom) INTO roadb FROM "StreetCenterlines" where id = streetb;
+SELECT ST_LineMerge(geom) INTO roada FROM "StreetCenterlines" WHERE id = streeta;
+SELECT ST_LineMerge(geom) INTO roadb FROM "StreetCenterlines" WHERE id = streetb;
+
+SELECT street INTO roadaname FROM streetclean WHERE id = streeta;
+SELECT street INTO roadbname FROM streetclean WHERE id = streetb;
 
 IF streeta <> streetb 
-AND ST_StartPoint(roada) = ST_EndPoint(roadb) 
+AND ST_StartPoint(roada) = ST_EndPoint(roadb)
+AND roadaname = roadbname
 OR ST_StartPoint(roadb) = ST_EndPoint(roada) 
 OR ST_StartPoint(roada) = ST_StartPoint(roadb)
 OR ST_EndPoint(roada) = ST_EndPoint(roadb)
