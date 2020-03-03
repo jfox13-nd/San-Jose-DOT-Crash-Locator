@@ -1,6 +1,6 @@
 # San Jose DOT Finding Crash Locations
 
-
+These scripts and SQL functions are designed to help the city of San Jose determine the GPS locations of crashes.
 
 
 ## References
