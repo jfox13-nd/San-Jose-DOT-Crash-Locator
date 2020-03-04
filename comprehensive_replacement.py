@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-'''add USPS abbreviations to string_conversions.json'''
+'''creates comprehensive string replacement JSON dictionary'''
 __author__ = "Jack Fox"
 __email__ = "jfox13@nd.edu"
 
@@ -12,6 +12,7 @@ CONVERTJSON = "unique_conversions.json"
 FINALJSON = "conversions.json"
 
 def create_usps_dict(usps_textfile: str, conversion_dict: dict) -> None:
+    ''' adds string replacements from the USPS substitution data to the conversion dictionary '''
     with open(usps_textfile, 'r') as f:
         text = f.readlines()
         last_word = text[0].strip()
@@ -27,9 +28,6 @@ def create_usps_dict(usps_textfile: str, conversion_dict: dict) -> None:
                 last_word = text[index+1].strip()
                 continue
             word_set.add(line)
-
-
-
 
 if __name__ == '__main__':
     with open(CONVERTJSON, 'r') as f:
