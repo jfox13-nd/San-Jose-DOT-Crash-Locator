@@ -7,26 +7,71 @@ DECLARE
     newintid bigint := 0;
 BEGIN
 
-    SELECT "Intersections".intid into newintid from "Intersections" where "Intersections".id = interId;
+    -- get the intid from the id, intid is a second key used to uniquely identify intersections, it can later be joined with road data
+    SELECT 
+        "Intersections".intid
+    INTO newintid
+    FROM "Intersections"
+    WHERE "Intersections".id = interId;
 
+    -- of all the roads that meet at a given intersection, find the road segment that is in the X direction by seeing which road segment centroid is the farthest distance away in X direction
     IF UPPER(direction) = 'NORTH' THEN
-        SELECT Q.id INTO streetID FROM
-            (SELECT id, geom FROM "StreetCenterlines" where frominteri = newintid OR tointerid = newintid) as Q
+        SELECT
+            Q.id 
+        INTO streetID
+        FROM
+            (SELECT
+                id,
+                geom
+            FROM "StreetCenterlines" 
+            WHERE frominteri = newintid
+                OR tointerid = newintid
+            ) as Q
         ORDER BY ST_Y(ST_Centroid(Q.geom)) DESC limit 1;
     END IF;
+
     IF UPPER(direction) = 'SOUTH' THEN
-        SELECT Q.id INTO streetID FROM
-            (SELECT id, geom FROM "StreetCenterlines" where frominteri = newintid OR tointerid = newintid) as Q
+        SELECT
+            Q.id
+        INTO streetID
+        FROM
+            (SELECT
+                id,
+                geom
+            FROM "StreetCenterlines"
+            WHERE frominteri = newintid 
+                OR tointerid = newintid
+            ) as Q
         ORDER BY ST_Y(ST_Centroid(Q.geom)) limit 1;
     END IF;
+
     IF UPPER(direction) = 'EAST' THEN
-        SELECT Q.id INTO streetID FROM
-            (SELECT id, geom FROM "StreetCenterlines" where frominteri = newintid OR tointerid = newintid) as Q
+        SELECT
+            Q.id
+        INTO streetID
+        FROM
+            (SELECT
+                id,
+                geom
+            FROM "StreetCenterlines"
+            WHERE frominteri = newintid 
+                OR tointerid = newintid
+            ) as Q
         ORDER BY ST_X(ST_Centroid(Q.geom)) DESC limit 1;
     END IF;
+
     IF UPPER(direction) = 'WEST' THEN
-        SELECT Q.id INTO streetID FROM
-            (SELECT id, geom FROM "StreetCenterlines" where frominteri = newintid OR tointerid = newintid) as Q
+        SELECT
+            Q.id
+        INTO streetID
+        FROM
+            (SELECT
+                id,
+                geom
+            FROM "StreetCenterlines"
+            WHERE frominteri = newintid 
+                OR tointerid = newintid
+            ) as Q
         ORDER BY ST_X(ST_Centroid(Q.geom)) limit 1;
     END IF;
 
@@ -35,12 +80,3 @@ BEGIN
 END;
 $body$
 LANGUAGE PLPGSQL;
-
-
-
-
-
-
-SELECT Q.id FROM
-            (SELECT id, geom FROM "StreetCenterlines" where frominteri = 127 OR tointerid = 127) as Q
-        ORDER BY ST_X(ST_Centroid(Q.geom)) DESC limit 1;

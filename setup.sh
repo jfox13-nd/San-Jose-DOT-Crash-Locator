@@ -21,12 +21,9 @@ if [ "$#" -ne 2 ]; then
     exit
 fi
 
-psql -d $1 -U $2 -a -f getstreetfrominter.sql > /dev/null
 psql -d $1 -U $2 -a -f getstreetfrominterv2.sql > /dev/null
 psql -d $1 -U $2 -a -f getnewlocation.sql > /dev/null
 psql -d $1 -U $2 -a -f getpointonroad.sql > /dev/null
 psql -d $1 -U $2 -a -f findcrashlocation.sql > /dev/null
-psql -d $1 -U $2 -a -f checkconnectedroad.sql > /dev/null
 psql -d $1 -U $2 -a -f pointx.sql > /dev/null
 psql -d $1 -U $2 -a -f pointy.sql > /dev/null
-psql -d $1 -U $2 -a -f inlinemax.sql > /dev/null
