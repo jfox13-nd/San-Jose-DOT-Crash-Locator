@@ -18,7 +18,7 @@ FROM (SELECT
     FROM interclean
     WHERE
     id = 126
-    ) as Q;
+    ) AS Q;
 ```
 ```
       pointy      |      pointx       
@@ -28,7 +28,7 @@ FROM (SELECT
 [Google Maps confirmation](https://www.google.com/maps/place/37%C2%B015'59.4%22N+121%C2%B055'34.5%22W/@37.2664954,-121.928441,17z/data=!3m1!4b1!4m5!3m4!1s0x0:0x0!8m2!3d37.2664912!4d-121.926247)
 
 ## Setup
-Run the bash script setup.sh
+Setup a PostGIS database with the relevant tables for street centerline data and intersection data. Then run the bash script setup.sh
 
 ```
 setup.sh [-h|-?] {databse} {username} -- program to upload relevant functions to your postgres database
@@ -38,6 +38,26 @@ where:
 ```
 
 Then the function `findcrashlocation()` can be used in any query.
+
+## Additional Scripts and Files
+
+### test_sql_func.py
+This script provides basic unit testing for some of the SQL functions used elsewhere. Change the `USERNAME` and `DBLOCALNAME` global variable values to your postgres username and database name.
+
+### querry_builder.py
+This script can be used when you need to form a query that involves comparison of road segments names. This data is very unclean, so the function `replace_string_builder()` is used to create a string that can be inserted into your SQL query to clean, consistent street names.
+
+### comprehensive_replacement.py
+This script is used to create the conversions.json file of all possible string substitutions, to be used by the aforementioned `replace_string_builder()` function in querry_builder.py.
+
+### conversions.json
+A JSON file containing all possible string substitutions that might be needed when performing a query on street names.
+
+### usps.txt
+A text file containing USPS commonly seen substitutions in addresses. Used to form conversions.json.
+
+### ups.json
+A text file containing UPS commonly seen substitutions in addresses. Used to form conversions.json.
 
 ## References
 Traffic abbreviations from https://gist.github.com/xjlin0/47b4afeaef480cbc4b5d and https://pe.usps.com/text/pub28/28apc_002.htm
