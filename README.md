@@ -6,7 +6,7 @@ The primary function is `findcrashlocation(interID integer, direction VARCHAR(20
 
 ## Example Query
 ```sql
--- find the GPS coordinates of a crash site 50 feet down the road from the intersection with an id of 126
+-- Find the GPS coordinates of a crash site 50 feet down the road from the intersection with an id of 126
 -- The intersection with an id of 126 is Geneva Ave / Hilary Dr
 SELECT pointy(Q.g), pointx(Q.g) FROM (select findcrashlocation(id, 'South', 50) as g from interclean where id = 126) as Q;
 ```
