@@ -2,7 +2,7 @@
 
 These scripts and SQL functions are designed to help the city of San Jose determine the GPS locations of traffic crashes.
 
-The primary function is `findcrashlocation(interID integer, direction VARCHAR(200), distance integer)`. Any additional functions are called by `findcrashlocation(interID integer, direction VARCHAR(200), distance integer)`.
+The primary function is `findcrashlocation(interID integer, direction VARCHAR(200), distance integer)`. Any additional functions are called by `findcrashlocation()`.
 
 ## Setup
 Run the bash script setup.sh
