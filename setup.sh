@@ -30,4 +30,3 @@ psql -d $1 -U $2 -a -f checkconnectedroad.sql > /dev/null
 psql -d $1 -U $2 -a -f pointx.sql > /dev/null
 psql -d $1 -U $2 -a -f pointy.sql > /dev/null
 psql -d $1 -U $2 -a -f inlinemax.sql > /dev/null
-psql -d $1 -U $2 -a -f secondclosestpt.sql > /dev/null
