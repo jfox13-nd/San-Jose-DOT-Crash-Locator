@@ -35,3 +35,12 @@ BEGIN
 END;
 $body$
 LANGUAGE PLPGSQL;
+
+
+
+
+
+
+SELECT Q.id FROM
+            (SELECT id, geom FROM "StreetCenterlines" where frominteri = 127 OR tointerid = 127) as Q
+        ORDER BY ST_X(ST_Centroid(Q.geom)) DESC limit 1;
