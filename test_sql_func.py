@@ -11,11 +11,10 @@ import unittest
 import math
 
 USERNAME = "jfox13"
-EWINTERSTRING = "East-West"
-NSINTERSTRING = "North-South"
 DBLOCALNAME = "dot"
 
 def db_setup():
+    ''' connect to postgres database '''
     try:
         connection = psycopg2.connect(user = USERNAME,
                                     host = "127.0.0.1",
@@ -74,11 +73,13 @@ class DotSQLTesting(unittest.TestCase):
 
     def test_findcrashlocation00(self):
         ''' find actual location of a crash '''
+        bottom_left = (-121.926347, 37.266326)
+        top_right = (-121.926222, 37.266406)
         cursor = db_setup()
         self.assertNotEqual(cursor,None)
 
         querry ="""
-        SELECT findcrashlocation({}, 'East', 30) FROM interclean;
+        select pointx(Q.g), pointy(Q.g) from (select findcrashlocation(id, 'South', 100) as g from interclean where id = {}) as Q;
         """.format(126)
 
         cursor.execute(querry)
@@ -86,7 +87,9 @@ class DotSQLTesting(unittest.TestCase):
         
         self.assertNotEqual(record, None)
         self.assertNotEqual(record[0], None)
-        print(record)
+        self.assertNotEqual(record[0][0], None)
+        self.assertNotEqual(record[0][1], None)
+        self.assertTrue( point_within_bounding_box(record[0], bottom_left, top_right) )
 
 if __name__ == '__main__':
     unittest.main()
