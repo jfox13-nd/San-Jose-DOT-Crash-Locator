@@ -16,21 +16,35 @@ BEGIN
 
     azimuth := ST_Azimuth(inter_point,line_start);
 
+    RAISE NOTICE 'fract_distance %', fract_distance;
+    RAISE NOTICE 'inter_fract %', inter_fract;
+
     -- Solution to check if line starts from West or South not entirely correct if road turns in very different direction
+    /*
     IF direction = 'West' THEN
-        fract_distance := fract_distance * -1.0;
+        --fract_distance := fract_distance * -1.0;
         IF azimuth > PI() AND azimuth < 2.0 * PI() THEN
             fract_distance := fract_distance * -1;
         END IF;
     END IF;
     IF direction = 'South' THEN
-        fract_distance := fract_distance * -1.0;
+        --fract_distance := fract_distance * -1.0;
         IF azimuth > PI() / 2.0 AND azimuth < 3.0 * PI() / 2.0 THEN
             fract_distance := fract_distance * -1.0;
         END IF;
     END IF;
-    
-    inter_fract := inter_fract + fract_distance;
+    */
+    IF inter_fract > 0.5 THEN
+        inter_fract := inter_fract - fract_distance;
+    END IF;
+
+    IF inter_fract < 0.5 THEN
+        inter_fract := inter_fract + fract_distance;
+    END IF;
+
+    IF inter_fract < 0 OR inter_fract > 1 THEN
+        RETURN NULL;
+    END IF;
 
     SELECT ST_LineInterpolatePoint( ST_LineMerge(geom), inter_fract) INTO final FROM "StreetCenterlines" where id = streetID;
 
