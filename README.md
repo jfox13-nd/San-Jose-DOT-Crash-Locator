@@ -10,7 +10,15 @@ The returned geometry from `findcrashlocation()` is in EPSG projection 4269. The
 ```sql
 -- Find the GPS coordinates of a crash site 50 feet down the road from the intersection with an id of 126
 -- The intersection with an id of 126 is Geneva Ave / Hilary Dr
-SELECT pointy(Q.g), pointx(Q.g) FROM (select findcrashlocation(id, 'South', 50) as g from interclean where id = 126) as Q;
+SELECT
+    pointy(Q.g) AS y,
+    pointx(Q.g) AS x 
+FROM (SELECT 
+        findcrashlocation(id, 'South', 50) AS g
+    FROM interclean
+    WHERE
+    id = 126
+    ) as Q;
 ```
 ```
       pointy      |      pointx       
