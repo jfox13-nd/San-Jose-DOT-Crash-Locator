@@ -6,10 +6,20 @@ DECLARE
     road geometry;
     inter geometry;
 BEGIN
-    -- ST_AsText
-    SELECT ST_LineMerge(geom) INTO road FROM "StreetCenterlines" WHERE id = streetID;
-    SELECT (ST_Dump(geom)).geom INTO inter FROM "Intersections" where id = interID;
 
+    SELECT 
+        ST_LineMerge(geom)
+    INTO road
+    FROM "StreetCenterlines"
+    WHERE id = streetID;
+
+    SELECT 
+        (ST_Dump(geom)).geom 
+    INTO inter 
+    FROM "Intersections"
+    WHERE id = interID;
+
+    -- return the closest point on a road to the given intersection
     RETURN ST_ClosestPoint(road, inter);
 
 END;
