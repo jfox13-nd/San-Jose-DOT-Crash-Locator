@@ -7,12 +7,19 @@ DECLARE
     streetID integer;
 BEGIN
 
-SELECT getstreetfrominterv2(interID, direction) INTO streetID FROM "Intersections", interclean WHERE "Intersections".id = interID and interclean.id = interID;
+-- find the relevant street segment connected to the given intersection in the given direction
+SELECT 
+    getstreetfrominterv2(interID, direction) 
+INTO streetID 
+FROM "Intersections", interclean
+WHERE "Intersections".id = interID
+    AND interclean.id = interID;
 
 IF streetID is NUll THEN
     RETURN NULL;
 END IF;
 
+-- return the point that is the correct distance along the road segment
 RETURN getnewlocation ( getpointonroad (interId, streetID), streetID, direction, distance);
 
 END;
