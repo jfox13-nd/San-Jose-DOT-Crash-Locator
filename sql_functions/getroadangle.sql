@@ -8,10 +8,6 @@ DECLARE
     streetend geometry;
     streetstart2 geometry;
     streetend2 geometry;
-
-    fract_distance float8;
-    inter_fract float8;
-    final geometry;
 BEGIN
 
     -- get intersection point
