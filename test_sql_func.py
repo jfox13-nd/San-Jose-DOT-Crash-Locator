@@ -91,5 +91,65 @@ class DotSQLTesting(unittest.TestCase):
         self.assertNotEqual(record[0][1], None)
         self.assertTrue( point_within_bounding_box(record[0], bottom_left, top_right) )
 
+    def test_findcrashlocation01(self):
+        ''' find actual location of a crash '''
+        bottom_left = (-121.915447, 37.258559)
+        top_right = (-121.915127, 37.258770)
+        cursor = db_setup()
+        self.assertNotEqual(cursor,None)
+
+        querry ="""
+        select pointx(Q.g), pointy(Q.g) from (select findcrashlocation(id, 'East', 100) as g from interclean where id = {}) as Q;
+        """.format(127)
+
+        cursor.execute(querry)
+        record = cursor.fetchall()
+        
+        self.assertNotEqual(record, None)
+        self.assertNotEqual(record[0], None)
+        self.assertNotEqual(record[0][0], None)
+        self.assertNotEqual(record[0][1], None)
+        self.assertTrue( point_within_bounding_box(record[0], bottom_left, top_right) )
+
+    def test_findcrashlocation02(self):
+        ''' find actual location of a crash '''
+        bottom_left = (-121.915513, 37.258181)
+        top_right = (-121.915329, 37.258356)
+        cursor = db_setup()
+        self.assertNotEqual(cursor,None)
+
+        querry ="""
+        select pointx(Q.g), pointy(Q.g) from (select findcrashlocation(id, 'South', 100) as g from interclean where id = {}) as Q;
+        """.format(127)
+
+        cursor.execute(querry)
+        record = cursor.fetchall()
+        
+        self.assertNotEqual(record, None)
+        self.assertNotEqual(record[0], None)
+        self.assertNotEqual(record[0][0], None)
+        self.assertNotEqual(record[0][1], None)
+        self.assertTrue( point_within_bounding_box(record[0], bottom_left, top_right) )
+
+    def test_findcrashlocation02(self):
+        ''' find actual location of a crash '''
+        bottom_left = (-121.916085, 37.258278)
+        top_right = (-121.915735, 37.258516)
+        cursor = db_setup()
+        self.assertNotEqual(cursor,None)
+
+        querry ="""
+        select pointx(Q.g), pointy(Q.g) from (select findcrashlocation(id, 'West', 100) as g from interclean where id = {}) as Q;
+        """.format(127)
+
+        cursor.execute(querry)
+        record = cursor.fetchall()
+        
+        self.assertNotEqual(record, None)
+        self.assertNotEqual(record[0], None)
+        self.assertNotEqual(record[0][0], None)
+        self.assertNotEqual(record[0][1], None)
+        self.assertTrue( point_within_bounding_box(record[0], bottom_left, top_right) )
+
 if __name__ == '__main__':
     unittest.main()
