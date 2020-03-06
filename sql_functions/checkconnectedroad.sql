@@ -6,7 +6,7 @@ DECLARE
     roada geometry;
     roadaname VARCHAR(200);
     roadb geometry;
-    roadaname VARCHAR(200);
+    roadbname VARCHAR(200);
 BEGIN
 
 SELECT ST_LineMerge(geom) INTO roada FROM "StreetCenterlines" WHERE id = streeta;
