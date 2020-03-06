@@ -27,7 +27,6 @@ BEGIN
             WHERE frominteri = newintid
                 OR tointerid = newintid
             ) as Q
-        --ORDER BY ST_Y(ST_Centroid(Q.geom)) DESC limit 1;
         ORDER BY  ABS(0.0 - getroadangle(interID,Q.id)) limit 1;
     END IF;
 
@@ -43,7 +42,6 @@ BEGIN
             WHERE frominteri = newintid 
                 OR tointerid = newintid
             ) as Q
-        --ORDER BY ST_Y(ST_Centroid(Q.geom)) limit 1;
         ORDER BY  ABS(PI() - getroadangle(interID,Q.id)) limit 1;
     END IF;
 
@@ -59,7 +57,6 @@ BEGIN
             WHERE frominteri = newintid 
                 OR tointerid = newintid
             ) as Q
-        --ORDER BY ST_X(ST_Centroid(Q.geom)) DESC limit 1;
         ORDER BY  ABS(PI() / 2.0 - getroadangle(interID,Q.id)) limit 1;
     END IF;
 
@@ -75,7 +72,6 @@ BEGIN
             WHERE frominteri = newintid 
                 OR tointerid = newintid
             ) as Q
-        --ORDER BY ST_X(ST_Centroid(Q.geom)) limit 1;
         ORDER BY  ABS(3.0 * PI() / 2.0 - getroadangle(interID,Q.id)) limit 1;
     END IF;
 
