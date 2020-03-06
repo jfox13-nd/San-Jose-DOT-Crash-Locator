@@ -59,5 +59,8 @@ A text file containing USPS commonly seen substitutions in addresses. Used to fo
 ### ups.json
 A text file containing UPS commonly seen substitutions in addresses. Used to form conversions.json.
 
+## Description of Tables
+See schema.md for a full description of the data.
+
 ## References
 Traffic abbreviations from https://gist.github.com/xjlin0/47b4afeaef480cbc4b5d and https://pe.usps.com/text/pub28/28apc_002.htm
