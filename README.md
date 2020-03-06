@@ -59,6 +59,9 @@ A text file containing USPS commonly seen substitutions in addresses. Used to fo
 ### ups.json
 A text file containing UPS commonly seen substitutions in addresses. Used to form conversions.json.
 
+### schema.md
+A detailed description of the data used for this project.
+
 ## Description of Tables
 See schema.md for a full description of the data.
 
