@@ -32,6 +32,12 @@ def point_within_bounding_box(x_y: tuple, bottom_left: tuple, top_right: tuple) 
         return True
     return False
 
+def create_findcrashlocation_query(interID: int, direction: str, distance: int) -> str:
+    ''' quickly generate findcrashlocation queries '''
+    return """
+    select pointx(Q.g), pointy(Q.g) from (select findcrashlocation(id, '{}', {}) as g from interclean where id = {}) as Q;
+    """.format(direction, distance, interID)
+
 class DotSQLTesting(unittest.TestCase):
 
     def test_getstreetfrominter00(self):
@@ -39,9 +45,9 @@ class DotSQLTesting(unittest.TestCase):
         cursor = db_setup()
         self.assertNotEqual(cursor,None)
 
-        querry = """SELECT getstreetfrominter(interclean.id, interclean.streeta, interclean.streetb, "Intersections".astreetdir, "Intersections".bstreetdir, "Intersections".{}streetdir) from interclean, "Intersections" where interclean.id = "Intersections".id and interclean.id = {};""".format('b',126)
+        query = """SELECT getstreetfrominter(interclean.id, interclean.streeta, interclean.streetb, "Intersections".astreetdir, "Intersections".bstreetdir, "Intersections".{}streetdir) from interclean, "Intersections" where interclean.id = "Intersections".id and interclean.id = {};""".format('b',126)
 
-        cursor.execute(querry)
+        cursor.execute(query)
         record = cursor.fetchall()
         self.assertNotEqual(record, None)
         self.assertNotEqual(record[0], None)
@@ -56,13 +62,13 @@ class DotSQLTesting(unittest.TestCase):
         cursor = db_setup()
         self.assertNotEqual(cursor,None)
 
-        querry = """
+        query = """
         SELECT ST_X( ST_Transform((ST_dump(pt)).geom,4269) ), ST_Y( ST_Transform((ST_dump(pt)).geom,4269) ) FROM
             (SELECT getpointonroad( interclean.id, getstreetfrominter(interclean.id, interclean.streeta, interclean.streetb, "Intersections".astreetdir, "Intersections".bstreetdir, "Intersections".{}streetdir)) AS pt
             FROM interclean, "Intersections"
             WHERE interclean.id = "Intersections".id AND interclean.id = {}) AS sub;
         """.format('b',126)
-        cursor.execute(querry)
+        cursor.execute(query)
         record = cursor.fetchall()
 
         self.assertNotEqual(record, None)
@@ -78,11 +84,9 @@ class DotSQLTesting(unittest.TestCase):
         cursor = db_setup()
         self.assertNotEqual(cursor,None)
 
-        querry ="""
-        select pointx(Q.g), pointy(Q.g) from (select findcrashlocation(id, 'South', 100) as g from interclean where id = {}) as Q;
-        """.format(126)
+        query = create_findcrashlocation_query(126, "South", 100)
 
-        cursor.execute(querry)
+        cursor.execute(query)
         record = cursor.fetchall()
         
         self.assertNotEqual(record, None)
@@ -98,11 +102,9 @@ class DotSQLTesting(unittest.TestCase):
         cursor = db_setup()
         self.assertNotEqual(cursor,None)
 
-        querry ="""
-        select pointx(Q.g), pointy(Q.g) from (select findcrashlocation(id, 'East', 100) as g from interclean where id = {}) as Q;
-        """.format(127)
+        query = create_findcrashlocation_query(127, "East", 100)
 
-        cursor.execute(querry)
+        cursor.execute(query)
         record = cursor.fetchall()
         
         self.assertNotEqual(record, None)
@@ -118,11 +120,9 @@ class DotSQLTesting(unittest.TestCase):
         cursor = db_setup()
         self.assertNotEqual(cursor,None)
 
-        querry ="""
-        select pointx(Q.g), pointy(Q.g) from (select findcrashlocation(id, 'South', 100) as g from interclean where id = {}) as Q;
-        """.format(127)
+        query = create_findcrashlocation_query(127, "South", 100)
 
-        cursor.execute(querry)
+        cursor.execute(query)
         record = cursor.fetchall()
         
         self.assertNotEqual(record, None)
@@ -138,11 +138,9 @@ class DotSQLTesting(unittest.TestCase):
         cursor = db_setup()
         self.assertNotEqual(cursor,None)
 
-        querry ="""
-        select pointx(Q.g), pointy(Q.g) from (select findcrashlocation(id, 'West', 100) as g from interclean where id = {}) as Q;
-        """.format(127)
+        query = create_findcrashlocation_query(127, "West", 100)
 
-        cursor.execute(querry)
+        cursor.execute(query)
         record = cursor.fetchall()
         
         self.assertNotEqual(record, None)
