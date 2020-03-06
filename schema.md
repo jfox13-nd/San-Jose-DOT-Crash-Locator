@@ -80,7 +80,7 @@ although `id` is the primary key both are unique integer IDs for the elements in
 This table contains data on each street segment in San Jose. Most street segments connect (with first and last points) two adjacent intersections. Some streets may not connect two intersections, however it is believed that each intersection will only share points with the beginnings and endings of street segments. All geometry is in EPSG:4269.
 
 ## Schema
-```
+```sql
                                            Table "public.StreetCenterlines"
    Column   |              Type              | Collation | Nullable |                     Default                     
 ------------+--------------------------------+-----------+----------+-------------------------------------------------
