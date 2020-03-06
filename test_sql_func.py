@@ -32,7 +32,11 @@ def point_within_bounding_box(x_y: tuple, bottom_left: tuple, top_right: tuple) 
         return True
     return False
 
-def create_findcrashlocation_query
+def create_findcrashlocation_query(interID: int, direction: str, distance: int) -> str:
+    ''' quickly generate findcrashlocation queries '''
+    return """
+    select pointx(Q.g), pointy(Q.g) from (select findcrashlocation(id, '{}', {}) as g from interclean where id = {}) as Q;
+    """.format(direction, distance, interID)
 
 class DotSQLTesting(unittest.TestCase):
 
@@ -80,9 +84,7 @@ class DotSQLTesting(unittest.TestCase):
         cursor = db_setup()
         self.assertNotEqual(cursor,None)
 
-        query ="""
-        select pointx(Q.g), pointy(Q.g) from (select findcrashlocation(id, 'South', 100) as g from interclean where id = {}) as Q;
-        """.format(126)
+        query = create_findcrashlocation_query(126, "South", 100)
 
         cursor.execute(query)
         record = cursor.fetchall()
@@ -100,9 +102,7 @@ class DotSQLTesting(unittest.TestCase):
         cursor = db_setup()
         self.assertNotEqual(cursor,None)
 
-        query ="""
-        select pointx(Q.g), pointy(Q.g) from (select findcrashlocation(id, 'East', 100) as g from interclean where id = {}) as Q;
-        """.format(127)
+        query = create_findcrashlocation_query(127, "East", 100)
 
         cursor.execute(query)
         record = cursor.fetchall()
@@ -120,9 +120,7 @@ class DotSQLTesting(unittest.TestCase):
         cursor = db_setup()
         self.assertNotEqual(cursor,None)
 
-        query ="""
-        select pointx(Q.g), pointy(Q.g) from (select findcrashlocation(id, 'South', 100) as g from interclean where id = {}) as Q;
-        """.format(127)
+        query = create_findcrashlocation_query(127, "South", 100)
 
         cursor.execute(query)
         record = cursor.fetchall()
@@ -140,9 +138,7 @@ class DotSQLTesting(unittest.TestCase):
         cursor = db_setup()
         self.assertNotEqual(cursor,None)
 
-        query ="""
-        select pointx(Q.g), pointy(Q.g) from (select findcrashlocation(id, 'West', 100) as g from interclean where id = {}) as Q;
-        """.format(127)
+        query = create_findcrashlocation_query(127, "West", 100)
 
         cursor.execute(query)
         record = cursor.fetchall()
