@@ -37,7 +37,7 @@ where:
     -h|-?  show this help text
 ```
 
-On a Windows machine you will need to upload all the sql files from the data and sql_functions directories manually.
+On a Windows machine you will need to upload all the sql files from the `\data` and `\sql_functions` directories manually.
 
 Then the function `findcrashlocation()` can be used in any query.
 
