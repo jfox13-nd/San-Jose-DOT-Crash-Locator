@@ -1,5 +1,7 @@
 # San Jose DOT Finding Crash Locations
 
+This branch includes SQL functions that are not used in `findcrashlocation()`
+
 These scripts and SQL functions are designed to help the city of San Jose determine the GPS locations of traffic crashes.
 
 The primary function is `findcrashlocation(interID integer, direction VARCHAR(200), distance integer)`. Any additional functions are called by `findcrashlocation()`.
