@@ -28,7 +28,7 @@ FROM (SELECT
 [Google Maps confirmation](https://www.google.com/maps/place/37%C2%B015'59.4%22N+121%C2%B055'34.5%22W/@37.2664954,-121.928441,17z/data=!3m1!4b1!4m5!3m4!1s0x0:0x0!8m2!3d37.2664912!4d-121.926247)
 
 ## Setup
-Setup a PostGIS database with the relevant tables for street centerline data ("StreetCenterlines") and intersection data ("Intersections"). Then run the bash script setup.sh
+If you have a Mac or Linux machine run the bash script setup.sh.
 
 ```
 setup.sh [-h|-?] {databse} {username} -- program to upload relevant functions to your postgres database
@@ -36,6 +36,8 @@ setup.sh [-h|-?] {databse} {username} -- program to upload relevant functions to
 where:
     -h|-?  show this help text
 ```
+
+On a Windows machine you will need to upload all the sql files from the data and sql_functions directories manually.
 
 Then the function `findcrashlocation()` can be used in any query.
 
