@@ -1,6 +1,6 @@
 #!/bin/bash
 
-usage="$(basename "$0") [-h|-?] {databse} {username} -- program to upload relevant functions to your postgres database
+usage="$(basename "$0") [-h|-?] {database} {username} -- program to upload relevant functions to your postgres database
 
 where:
     -h|-?  show this help text"
