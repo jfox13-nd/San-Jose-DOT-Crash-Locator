@@ -10,13 +10,13 @@ BEGIN
     SELECT 
         ST_LineMerge(geom)
     INTO road
-    FROM "StreetCenterlines"
+    FROM "streetcenterlines"
     WHERE id = streetID;
 
     SELECT 
         (ST_Dump(geom)).geom 
     INTO inter 
-    FROM "Intersections"
+    FROM "intersections"
     WHERE id = interID;
 
     -- return the closest point on a road to the given intersection

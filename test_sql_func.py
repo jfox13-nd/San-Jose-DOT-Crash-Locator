@@ -45,7 +45,7 @@ class DotSQLTesting(unittest.TestCase):
         cursor = db_setup()
         self.assertNotEqual(cursor,None)
 
-        query = """SELECT getstreetfrominter(interclean.id, interclean.streeta, interclean.streetb, "Intersections".astreetdir, "Intersections".bstreetdir, "Intersections".{}streetdir) from interclean, "Intersections" where interclean.id = "Intersections".id and interclean.id = {};""".format('b',126)
+        query = """SELECT getstreetfrominter(interclean.id, interclean.streeta, interclean.streetb, "intersections".astreetdir, "intersections".bstreetdir, "intersections".{}streetdir) from interclean, "intersections" where interclean.id = "intersections".id and interclean.id = {};""".format('b',126)
 
         cursor.execute(query)
         record = cursor.fetchall()
@@ -64,9 +64,9 @@ class DotSQLTesting(unittest.TestCase):
 
         query = """
         SELECT ST_X( ST_Transform((ST_dump(pt)).geom,4269) ), ST_Y( ST_Transform((ST_dump(pt)).geom,4269) ) FROM
-            (SELECT getpointonroad( interclean.id, getstreetfrominter(interclean.id, interclean.streeta, interclean.streetb, "Intersections".astreetdir, "Intersections".bstreetdir, "Intersections".{}streetdir)) AS pt
-            FROM interclean, "Intersections"
-            WHERE interclean.id = "Intersections".id AND interclean.id = {}) AS sub;
+            (SELECT getpointonroad( interclean.id, getstreetfrominter(interclean.id, interclean.streeta, interclean.streetb, "intersections".astreetdir, "intersections".bstreetdir, "intersections".{}streetdir)) AS pt
+            FROM interclean, "intersections"
+            WHERE interclean.id = "intersections".id AND interclean.id = {}) AS sub;
         """.format('b',126)
         cursor.execute(query)
         record = cursor.fetchall()

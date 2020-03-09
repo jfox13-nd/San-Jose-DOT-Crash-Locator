@@ -9,10 +9,10 @@ BEGIN
 
     -- get the intid from the id, intid is a second key used to uniquely identify intersections, it can later be joined with road data
     SELECT 
-        "Intersections".intid
+        "intersections".intid
     INTO newintid
-    FROM "Intersections"
-    WHERE "Intersections".id = interId;
+    FROM "intersections"
+    WHERE "intersections".id = interId;
 
     -- of all the roads that meet at a given intersection, find the road segment that is in the X direction by seeing which road segment centroid is the farthest distance away in X direction
     IF UPPER(direction) = 'NORTH' THEN
@@ -23,7 +23,7 @@ BEGIN
             (SELECT
                 id,
                 geom
-            FROM "StreetCenterlines" 
+            FROM "streetcenterlines" 
             WHERE frominteri = newintid
                 OR tointerid = newintid
             ) as Q
@@ -38,7 +38,7 @@ BEGIN
             (SELECT
                 id,
                 geom
-            FROM "StreetCenterlines"
+            FROM "streetcenterlines"
             WHERE frominteri = newintid 
                 OR tointerid = newintid
             ) as Q
@@ -53,7 +53,7 @@ BEGIN
             (SELECT
                 id,
                 geom
-            FROM "StreetCenterlines"
+            FROM "streetcenterlines"
             WHERE frominteri = newintid 
                 OR tointerid = newintid
             ) as Q
@@ -68,7 +68,7 @@ BEGIN
             (SELECT
                 id,
                 geom
-            FROM "StreetCenterlines"
+            FROM "streetcenterlines"
             WHERE frominteri = newintid 
                 OR tointerid = newintid
             ) as Q
