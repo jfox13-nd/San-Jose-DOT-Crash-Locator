@@ -13,7 +13,7 @@ import math
 USERNAME = "jfox13"
 DBLOCALNAME = "dot"
 
-def db_setup():
+def db_setup() -> None:
     ''' connect to postgres database '''
     try:
         connection = psycopg2.connect(user = USERNAME,
