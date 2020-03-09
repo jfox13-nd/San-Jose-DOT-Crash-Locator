@@ -12,13 +12,13 @@ BEGIN
     SELECT
         distance / ST_Length(ST_AsText(ST_LineMerge(geom)))
     INTO fract_distance
-    FROM "StreetCenterlines"
+    FROM "streetcenterlines"
     WHERE id = streetID;
     -- locate the fraction of the road line where the intersection is located
     SELECT
         ST_LineLocatePoint( ST_LineMerge(geom) , inter_point)
     INTO inter_fract
-    FROM "StreetCenterlines"
+    FROM "streetcenterlines"
     WHERE id = streetID;
 
     -- combine the fraction distance to the crash with the fraction distance to intersection
@@ -37,7 +37,7 @@ BEGIN
     SELECT
         ST_LineInterpolatePoint( ST_LineMerge(geom), inter_fract)
     INTO final 
-    FROM "StreetCenterlines"
+    FROM "streetcenterlines"
     WHERE id = streetID;
 
     RETURN final;

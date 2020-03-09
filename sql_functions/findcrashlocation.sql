@@ -11,8 +11,8 @@ BEGIN
 SELECT 
     getstreetfrominterv2(interID, direction) 
 INTO streetID 
-FROM "Intersections"
-WHERE "Intersections".id = interID;
+FROM "intersections"
+WHERE "intersections".id = interID;
 
 IF streetID is NUll THEN
     RETURN NULL;

@@ -12,43 +12,43 @@ BEGIN
 
     -- get intersection point
     SELECT
-        (ST_Dump("Intersections".geom)).geom
+        (ST_Dump("intersections".geom)).geom
     INTO
         interpoint
-    FROM "Intersections"
-    WHERE "Intersections".id = interID;
+    FROM "intersections"
+    WHERE "intersections".id = interID;
 
     -- get start of street
     SELECT
-        ST_StartPoint(ST_LineMerge("StreetCenterlines".geom))
+        ST_StartPoint(ST_LineMerge("streetcenterlines".geom))
     INTO
         streetstart
-    FROM "StreetCenterlines"
-    WHERE "StreetCenterlines".id = streetID;
+    FROM "streetcenterlines"
+    WHERE "streetcenterlines".id = streetID;
 
     -- get end of street
     SELECT
-        ST_EndPoint(ST_LineMerge("StreetCenterlines".geom))
+        ST_EndPoint(ST_LineMerge("streetcenterlines".geom))
     INTO
         streetend
-    FROM "StreetCenterlines"
-    WHERE "StreetCenterlines".id = streetID;
+    FROM "streetcenterlines"
+    WHERE "streetcenterlines".id = streetID;
 
     -- get second point in street
     SELECT
-        ST_PointN(ST_LineMerge("StreetCenterlines".geom),2)
+        ST_PointN(ST_LineMerge("streetcenterlines".geom),2)
     INTO
         streetstart2
-    FROM "StreetCenterlines"
-    WHERE "StreetCenterlines".id = streetID;
+    FROM "streetcenterlines"
+    WHERE "streetcenterlines".id = streetID;
 
     -- get second to last point in street
     SELECT
-        ST_PointN(ST_LineMerge("StreetCenterlines".geom),-2)
+        ST_PointN(ST_LineMerge("streetcenterlines".geom),-2)
     INTO
         streetend2
-    FROM "StreetCenterlines"
-    WHERE "StreetCenterlines".id = streetID;
+    FROM "streetcenterlines"
+    WHERE "streetcenterlines".id = streetID;
 
     -- return the azimuth of the first point to the second, starting from the relevant end of the line
     IF ST_Distance(interpoint,streetstart) < ST_Distance(interpoint,streetend) THEN
