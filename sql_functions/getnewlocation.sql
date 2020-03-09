@@ -34,7 +34,11 @@ BEGIN
         RETURN NULL;
     END IF;
     -- convert the fraction down the road line into a geometry point
-    SELECT ST_LineInterpolatePoint( ST_LineMerge(geom), inter_fract) INTO final FROM "StreetCenterlines" where id = streetID;
+    SELECT
+        ST_LineInterpolatePoint( ST_LineMerge(geom), inter_fract)
+    INTO final 
+    FROM "StreetCenterlines"
+    WHERE id = streetID;
 
     RETURN final;
 
