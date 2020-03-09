@@ -80,6 +80,7 @@ def get_info(id: int) -> bool:
     bstreet = record[0][3]
 
     print("""
+    ID: {}
     {} & {}
     North:
     {},{}
@@ -90,6 +91,7 @@ def get_info(id: int) -> bool:
     West:
     {},{}
     """.format(
+        id,
         astreet, 
         bstreet, 
         querry_results[0][0], querry_results[0][1], 
