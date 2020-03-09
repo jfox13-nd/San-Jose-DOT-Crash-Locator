@@ -33,7 +33,7 @@ Install [PostgreSQL](https://www.postgresql.org/) and create a database with the
 If you have a Mac or Linux machine you can then run the bash script setup.sh to import all relevant files and functions.
 
 ```
-setup.sh [-h|-?] {databse} {username} -- program to upload relevant functions to your postgres database
+setup.sh [-h|-?] {database} {username} -- program to upload relevant functions to your postgres database
 
 where:
     -h|-?  show this help text
