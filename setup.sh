@@ -5,9 +5,6 @@ usage="$(basename "$0") [-h|-?] {databse} {username} -- program to upload releva
 where:
     -h|-?  show this help text"
 
-psqluser="postgres"
-psqldatabse="postgres"
-
 if [ "$1" = "-h" ]; then
     echo "$usage"
     exit
