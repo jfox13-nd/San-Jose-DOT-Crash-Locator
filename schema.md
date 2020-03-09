@@ -140,7 +140,7 @@ The IDs of the intersection that each street segment starts and ends on. The val
 # Table: "streetclean"
 
 ## Description
-This table references "StreetCenterlines" and simply provides street names that have been better cleaned and standardized. This table is not required to use `findcrashlocations()`.
+This table references "StreetCenterlines" and simply provides street names that have been better cleaned and standardized. This table is not required to use `findcrashlocations()` and is only relevant for some of the functions found in the [depreciated branch](https://github.com/jfox13-nd/San-Jose-DOT-Crash-Locator/tree/depreciated).
 
 ## Schema
 ```sql
@@ -158,7 +158,7 @@ Foreign-key constraints:
 # Table: "interclean"
 
 ## Description
-This table references "Intersections" and simply provides street names that have been better cleaned and standardized. This table is not required to use `findcrashlocations()`.
+This table references "Intersections" and simply provides street names that have been better cleaned and standardized. This table is not required to use `findcrashlocations()` and is only relevant for some of the functions found in the [depreciated branch](https://github.com/jfox13-nd/San-Jose-DOT-Crash-Locator/tree/depreciated).
 
 ## Schema
 ```sql
