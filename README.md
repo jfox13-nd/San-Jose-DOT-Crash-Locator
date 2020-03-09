@@ -48,6 +48,9 @@ Then the function `findcrashlocation()` can be used in queries.
 ### test_sql_func.py
 This script provides basic unit testing for some of the SQL functions used elsewhere. Change the `USERNAME` and `DBLOCALNAME` global variable values to your postgres username and database name.
 
+### random_testing.py
+This script helps test the `findcrashlocation()` function by choosing a random id and showing the GPS coordinates of queries for the locations 50 feet North, South, East, and West of that intersection.
+
 ### querry_builder.py
 This script can be used when you need to form a query that involves comparison of road segments names. This data is very unclean, so the function `replace_string_builder()` is used to create a string that can be inserted into your SQL query to clean, consistent street names.
 
