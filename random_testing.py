@@ -35,11 +35,15 @@ def query_gen(id: int, direction: str) -> str:
     pointy(Q.g) AS y,
     pointx(Q.g) AS x,
     Q.astreetnam,
-    Q.bstreetnam
+    Q.bstreetnam,
+    Q.astreetdir,
+    Q.bstreetdir
 FROM (SELECT 
         findcrashlocation(id, '{}', 50) AS g,
         astreetnam,
-        bstreetnam
+        bstreetnam,
+        astreetdir,
+        bstreetdir
     FROM intersections
     WHERE
     id = {}
@@ -73,15 +77,18 @@ def get_info(id: int) -> bool:
     for q in queries:
         cursor.execute(q)
         record = cursor.fetchall()
-        if not record and record[0] and len(record[0]) == 4:
+        if not record and record[0] and len(record[0]) == 6:
             return False
         querry_results.append(record[0])
     astreet = record[0][2]
     bstreet = record[0][3]
+    astreetdir = record[0][4]
+    bstreetdir = record[0][5]
 
     print("""
     ID: {}
-    {} & {}
+    {}: {}
+    {}: {}
     North:
     {},{}
     South:
@@ -92,8 +99,10 @@ def get_info(id: int) -> bool:
     {},{}
     """.format(
         id,
-        astreet, 
-        bstreet, 
+        astreet,
+        astreetdir,
+        bstreet,
+        bstreetdir,
         querry_results[0][0], querry_results[0][1], 
         querry_results[1][0],querry_results[1][1], 
         querry_results[2][0], querry_results[2][1], 
