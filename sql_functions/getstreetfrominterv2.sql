@@ -27,7 +27,7 @@ BEGIN
             WHERE frominteri = newintid
                 OR tointerid = newintid
             ) as Q
-        ORDER BY  ABS(0.0 - getroadangle(interID,Q.id)) limit 1;
+        ORDER BY  inlinemin(ABS(0.0 - getroadangle(interID,Q.id)), ABS( 2 * PI() - getroadangle(interID,Q.id)) ) limit 1;
     END IF;
 
     IF UPPER(direction) = 'SOUTH' THEN
