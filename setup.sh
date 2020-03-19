@@ -18,12 +18,12 @@ if [ "$#" -ne 2 ]; then
     exit
 fi
 
-psql -d $1 -U $2 -a -f sql_functions/getstreetfrominterv2.sql > /dev/null
-psql -d $1 -U $2 -a -f sql_functions/getnewlocation.sql > /dev/null
-psql -d $1 -U $2 -a -f sql_functions/getpointonroad.sql > /dev/null
-psql -d $1 -U $2 -a -f sql_functions/findcrashlocation.sql > /dev/null
-psql -d $1 -U $2 -a -f sql_functions/pointx.sql > /dev/null
-psql -d $1 -U $2 -a -f sql_functions/pointy.sql > /dev/null
-psql -d $1 -U $2 -a -f sql_functions/inlinemin.sql > /dev/null
-psql -d $1 -U $2 -a -f data/intersections_import.sql > /dev/null
-psql -d $1 -U $2 -a -f data/streetcenterlines_import.sql > /dev/null
+# load functions
+for f in sql_functions/*.sql; do
+    psql -d $1 -U $2 -a -f "$f" > /dev/null && echo "$(basename "$0"): Successfully Imported $f"
+done
+
+# load data
+for f in data/*.sql; do
+    psql -d $1 -U $2 -a -f "$f" > /dev/null && echo "$(basename "$0"): Successfully Imported $f"
+done
