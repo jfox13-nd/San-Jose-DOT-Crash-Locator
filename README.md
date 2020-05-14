@@ -32,14 +32,18 @@ Install [PostgreSQL](https://www.postgresql.org/) and create a database with the
 
 If you have a Mac or Linux machine you can then run the bash script setup.sh to import all relevant files and functions.
 
-```
+```bash
 setup.sh [-h|-?] {database} {username} -- program to upload relevant functions to your postgres database
 
 where:
     -h|-?  show this help text
 ```
 
-On a Windows machine you will need to upload all the sql files from the `\data` and `\sql_functions` directories manually.
+On a Windows machine you will need to upload all the sql files from the `\data` and `\sql_functions` directories manually. Try running the following in Windows Command Prompt for each SQL file in `\data` and `\sql_functions`:
+
+```shell
+psql -d $DATABASE -U $USERNAME -a -f "$FILE_NAME"
+```
 
 Then the function `findcrashlocation()` can be used in queries.
 
