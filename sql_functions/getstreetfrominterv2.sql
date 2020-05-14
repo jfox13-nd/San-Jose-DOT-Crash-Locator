@@ -26,7 +26,7 @@ BEGIN
             FROM "streetcenterlines" 
             WHERE frominteri = newintid
                 OR tointerid = newintid
-            ) as Q
+            ) AS Q
         ORDER BY  inlinemin(ABS(0.0 - getroadangle(interID,Q.id)), ABS( 2 * PI() - getroadangle(interID,Q.id)) ) limit 1;
     END IF;
 
@@ -41,7 +41,7 @@ BEGIN
             FROM "streetcenterlines"
             WHERE frominteri = newintid 
                 OR tointerid = newintid
-            ) as Q
+            ) AS Q
         ORDER BY  ABS(PI() - getroadangle(interID,Q.id)) limit 1;
     END IF;
 
@@ -56,7 +56,7 @@ BEGIN
             FROM "streetcenterlines"
             WHERE frominteri = newintid 
                 OR tointerid = newintid
-            ) as Q
+            ) AS Q
         ORDER BY  ABS(PI() / 2.0 - getroadangle(interID,Q.id)) limit 1;
     END IF;
 
@@ -71,7 +71,7 @@ BEGIN
             FROM "streetcenterlines"
             WHERE frominteri = newintid 
                 OR tointerid = newintid
-            ) as Q
+            ) AS Q
         ORDER BY  ABS(3.0 * PI() / 2.0 - getroadangle(interID,Q.id)) limit 1;
     END IF;
 
