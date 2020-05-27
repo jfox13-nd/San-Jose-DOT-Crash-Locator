@@ -30,7 +30,7 @@ FROM (SELECT
 ## Setup
 Install [PostgreSQL](https://www.postgresql.org/) and create a database with the [PostGIS](https://postgis.net/install/) extension.
 
-If you have a Mac or Linux machine you can then run the bash script setup.sh to import all relevant files and functions.
+If you have a Mac or Linux machine you can then run the bash script [setup.sh](https://github.com/jfox13-nd/San-Jose-DOT-Crash-Locator/blob/master/setup.sh) to import all relevant files and functions.
 
 ```bash
 setup.sh [-h|-?] {database} {username} -- program to upload relevant functions to your postgres database
@@ -39,7 +39,7 @@ where:
     -h|-?  show this help text
 ```
 
-On a Windows machine you will need to upload all the sql files from the `\data` and `\sql_functions` directories manually. Try running the following in Windows Command Prompt for each SQL file in `\data` and `\sql_functions`:
+On a Windows machine you will need to upload all the sql files from the [data](https://github.com/jfox13-nd/San-Jose-DOT-Crash-Locator/tree/master/data) and [sql_functions](https://github.com/jfox13-nd/San-Jose-DOT-Crash-Locator/tree/master/sql_functions) directories manually. Try running the following in Windows Command Prompt for each SQL file in [data](https://github.com/jfox13-nd/San-Jose-DOT-Crash-Locator/tree/master/data) and [sql_functions](https://github.com/jfox13-nd/San-Jose-DOT-Crash-Locator/tree/master/sql_functions):
 
 ```shell
 psql -d $DATABASE -U $USERNAME -a -f "$FILE_NAME"
@@ -49,38 +49,40 @@ Then the function `findcrashlocation()` can be used in queries.
 
 ## Additional Scripts and Files
 
-### test_sql_func.py
+### [test_sql_func.py](https://github.com/jfox13-nd/San-Jose-DOT-Crash-Locator/blob/master/test_sql_func.py)
 This script provides basic unit testing for some of the SQL functions used elsewhere. Change the `USERNAME` and `DBLOCALNAME` global variable values to your postgres username and database name.
 
-### random_testing.py
+### [random_testing.py](https://github.com/jfox13-nd/San-Jose-DOT-Crash-Locator/blob/master/random_testing.py)
 This script helps test the `findcrashlocation()` function by choosing a random id and showing the GPS coordinates of queries for the locations 50 feet North, South, East, and West of that intersection.
 
-### querry_builder.py
+### [querry_builder.py](https://github.com/jfox13-nd/San-Jose-DOT-Crash-Locator/blob/master/street_name_querying/querry_builder.py)
 This script can be used when you need to form a query that involves comparison of road segments names. This data is very unclean, so the function `replace_string_builder()` is used to create a string that can be inserted into your SQL query to clean, consistent street names.
 
-### comprehensive_replacement.py
+### [comprehensive_replacement.py](https://github.com/jfox13-nd/San-Jose-DOT-Crash-Locator/blob/master/street_name_querying/comprehensive_replacement.py)
 This script is used to create the conversions.json file of all possible string substitutions, to be used by the aforementioned `replace_string_builder()` function in querry_builder.py.
 
-### conversions.json
+### [conversions.json](https://github.com/jfox13-nd/San-Jose-DOT-Crash-Locator/blob/master/street_name_querying/conversions.json)
 A JSON file containing all possible string substitutions that might be needed when performing a query on street names.
 
-### usps.txt
+### [usps.txt](https://github.com/jfox13-nd/San-Jose-DOT-Crash-Locator/blob/master/street_name_querying/usps.txt)
 A text file containing USPS commonly seen substitutions in addresses. Used to form conversions.json.
 
-### ups.json
+### [ups.json](https://github.com/jfox13-nd/San-Jose-DOT-Crash-Locator/blob/master/street_name_querying/ups.json)
 A text file containing UPS commonly seen substitutions in addresses. Used to form conversions.json.
 
-### schema.md
+### [schema.md](https://github.com/jfox13-nd/San-Jose-DOT-Crash-Locator/blob/master/schema.md)
 A detailed description of the data used for this project.
 
-### intersections_import.sql
+### [intersections_import.sql](https://github.com/jfox13-nd/San-Jose-DOT-Crash-Locator/blob/master/data/intersections_import.sql)
 Contains the SQL code to import the "intersections" table into your PostgreSQL database.
 
-### streetcenterlines_import.sql
+### [streetcenterlines_import.sql](https://github.com/jfox13-nd/San-Jose-DOT-Crash-Locator/blob/master/data/streetcenterlines_import.sql)
 Contains the SQL code to import the "streetcenterlines" table into your PostgreSQL database.
 
 ## Description of Tables
 See schema.md for a full description of the data.
 
 ## References
-Traffic abbreviations from https://gist.github.com/xjlin0/47b4afeaef480cbc4b5d and https://pe.usps.com/text/pub28/28apc_002.htm
+### Street Name Abbreviations
+ * https://gist.github.com/xjlin0/47b4afeaef480cbc4b5d
+ * https://pe.usps.com/text/pub28/28apc_002.htm
