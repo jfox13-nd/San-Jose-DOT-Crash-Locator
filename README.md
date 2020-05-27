@@ -83,4 +83,6 @@ Contains the SQL code to import the "streetcenterlines" table into your PostgreS
 See schema.md for a full description of the data.
 
 ## References
-Traffic abbreviations from https://gist.github.com/xjlin0/47b4afeaef480cbc4b5d and https://pe.usps.com/text/pub28/28apc_002.htm
+### Street Name Abbreviations
+ * https://gist.github.com/xjlin0/47b4afeaef480cbc4b5d
+ * https://pe.usps.com/text/pub28/28apc_002.htm
