@@ -51,7 +51,7 @@ CREATE EXTENSION address_standardizer_data_us;
 CREATE EXTENSION postgis_tiger_geocoder;
 ```
 
-If you have a Mac or Linux machine you can then run the bash script [setup.sh](https://github.com/jfox13-nd/San-Jose-DOT-Crash-Locator/blob/master/setup.sh) to import all relevant files and functions.
+If you have a machine that can run Bash scripts (such as a Mac or Linux machine) you should run [setup.sh](https://github.com/jfox13-nd/San-Jose-DOT-Crash-Locator/blob/master/setup.sh) to import all relevant files and functions.
 
 ```bash
 setup.sh [-h|-?] {database} {username} -- program to upload relevant functions to your postgres database
@@ -60,7 +60,7 @@ where:
     -h|-?  show this help text
 ```
 
-On a Windows machine you will need to upload all the sql files from the [data](https://github.com/jfox13-nd/San-Jose-DOT-Crash-Locator/tree/master/data) and [sql_functions](https://github.com/jfox13-nd/San-Jose-DOT-Crash-Locator/tree/master/sql_functions) directories manually. Try running the following in Windows Command Prompt for each SQL file in [data](https://github.com/jfox13-nd/San-Jose-DOT-Crash-Locator/tree/master/data) and [sql_functions](https://github.com/jfox13-nd/San-Jose-DOT-Crash-Locator/tree/master/sql_functions):
+If you cannot run Bash scripts you will need to upload all the sql files from the [data](https://github.com/jfox13-nd/San-Jose-DOT-Crash-Locator/tree/master/data) and [sql_functions](https://github.com/jfox13-nd/San-Jose-DOT-Crash-Locator/tree/master/sql_functions) directories manually. Try running the following in Windows Command Prompt for each SQL file in [data](https://github.com/jfox13-nd/San-Jose-DOT-Crash-Locator/tree/master/data) and [sql_functions](https://github.com/jfox13-nd/San-Jose-DOT-Crash-Locator/tree/master/sql_functions):
 
 ```shell
 psql -d $DATABASE -U $USERNAME -a -f "$FILE_NAME"
