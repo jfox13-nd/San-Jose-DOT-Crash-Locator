@@ -101,7 +101,39 @@ Contains the SQL code to import the "intersections" table into your PostgreSQL d
 Contains the SQL code to import the "streetcenterlines" table into your PostgreSQL database.
 
 ## Description of Tables
-See schema.md for a full description of the data.
+See [schema.md](https://github.com/jfox13-nd/San-Jose-DOT-Crash-Locator/blob/master/schema.md) for a full description of the data.
+
+## Modifying This Repository For Other Cities
+This repository could not be immediately used with data from another city, however it could be modified to support another city if that city's crash data is structured in a similar way.
+
+The following points must be largely consistent between San Jose and the new city if this repository can be modified to find crashes in that new city:
+1. The city base map must be structured similarly
+    * The base map of the city must include point intersections and line street segments
+    * Street segment lines start and end at intersections and given a street segment one can quickly retrieve the IDs of these intersections
+    * A street segment is not bisected by any intersections or other street segments.
+        * Street segments only meet at intersections and a street segment only touches intersections at the start or end of a line
+    * There are no overlapping intersections
+2. Certain data must be collected for each collision
+    * Some unique ID for that collision
+    * The intersection closest to the the crash
+        * Preferably there is some intersection ID available for each intersection
+        * If only the names of the intersecting streets are available consider implementing a fuzzy matching algorithim to find the intersection ID
+    * The cardinal direction from the intersection to the collision
+    * The distance between the intersection and the collision
+
+Here are some of the steps required to modify this repository if the previously mentioned points are consistent:
+1. Upload the new city base map to your Postgres database as an intersections table and a street segments table
+    * If the names of these tables are different then you must modify the SQL functions to reflect this
+2. Account for any changes in projection
+    * The existing code assumes EPSG projection 4269 and distances in feet
+3. Account for changes in geometric types
+    * Modify each SQL function to work with the geometric types you've used to represent your data
+    * Remember that the San Jose intersections table uses a `MultiPoint` geometry type while the 
+4. Modify each SQL function so that the San Jose-specfic attributes are replaced with the attributes for your new city
+    * reference [schema.md](https://github.com/jfox13-nd/San-Jose-DOT-Crash-Locator/blob/master/schema.md)
+
+If you are trying to modify this repository for a new city feel free to ask me questions:
+Email: jfox13@nd.edu
 
 ## References
 ### Street Name Abbreviations
